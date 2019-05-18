@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+  github-profiler:
+    image: robbof/nodemon
+    volumes:
+    - "${PWD}/github-profiler:/usr/src/app"
+    working_dir: "/usr/src/app"
+    entrypoint:
+    - "yarn"
+    - "start"
+    # ports:
+    # - 3000:3000
+    networks:
+    - web
+    labels:
+    - "traefik.backend=steam-compare"
+    - "traefik.docker.network=web"
+    - "traefik.frontend.rule=Host:staging.robbo.xyz"
+    - "traefik.enable=true"
+    - "traefik.port=3000"
+
+networks:
+  web:
+    external: true
