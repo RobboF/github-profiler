@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
+
 import { Doughnut } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 import ListItem from 'react'
@@ -103,17 +105,20 @@ export default class UserInformation extends Component {
                     <Card.Title> Forked: {this.state.forkedRepos} </Card.Title>
                 </Card>
                 <div className="d-flex flex-row">
-                <Card className="m-1 p-1 my-2">
-                <ul className="list-group list-group-flush">
+                <Card className="m-1 p-1 my-2 d-flex flex-wrap">
+                {/* <ul className="list-group list-group-flush flex-d flex-column">
                     {Object.keys(this.state.langCount).map((keys) => 
                        <li className="list-group-item" key={keys}>{keys}: {this.state.langCount[keys]}</li> 
                         )}
-                </ul>
+                </ul> */}
+                    {Object.keys(this.state.langCount).map((keys) => 
+                       <Badge pill variant="light" className="m-1" key={keys}>{keys}: {this.state.langCount[keys]}</Badge> 
+                        )}
                 </Card>
-                <Card className="m-1 p-1 my-2 flex-fill">
+                <Card className="m-1 p-1 my-2 flex-fill h-25">
                     <MDBContainer>
                      <Card.Title>Languages: </Card.Title>
-                    <Doughnut data={this.state.languageGraph} options={{ responsive: true, legend:{display: false, position: "left"} }} />
+                    <Doughnut data={this.state.languageGraph} options={{ responsive: true, legend:{display: false, position: "left"},  }} />
                     </MDBContainer>
                 </Card>
                 </div>

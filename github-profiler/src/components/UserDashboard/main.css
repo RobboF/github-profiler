@@ -9,6 +9,8 @@ body {
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
+    max-width: 300px;
+    background-color: #f8f9fa
   }
   
   #sidebar-wrapper .sidebar-heading {
