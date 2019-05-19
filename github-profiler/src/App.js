@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import GetUser from './components/GetUser/getUser'
+import Dashboard from './components/UserDashboard/dashboard'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            selectedUser: ""
+            }
+        }
+    getSelectedUser = (userURL) => {
+        this.setState({selectedUser: userURL}) 
+    }
+
+  render() {
+    return (
+      <div style={styles.appContainer}> 
+        <Router>
+          <div className="App">
+            <div>
+            <Route exact path="/" render={(props => <GetUser getSelectedUser={this.getSelectedUser}/>)}/>
+            <Route exact path="/user" render={(props => <Dashboard userURL={this.state.selectedUser}/>)}/>
+
+            </div> 
+          </div>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
+
+const styles = {
+  appContainer: {
+    // flex: 1,
+    height: "100vh"
+    // flexDirection: 'column',
+    // justifyContent: "space-between",
+    // overflowY: 'none',
+  }
+}
