@@ -9,6 +9,8 @@ import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import CommitGraph from '../RepoInformation/commitGraph';
+import config from '../../../../config.json'
+
 
 export default class UserInformation extends Component {
     constructor(props){
@@ -25,8 +27,7 @@ export default class UserInformation extends Component {
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
-              'Authorization': "Basic <API TOKEN HERE>"
-            //   'Authorization': 'Basic afcda424d27073fd1ff6faa45d975c0cb7f14faf'
+              'Authorization': `Basic ${config.apiToken}`
             }
           })
           .then(response => {return response.json()}).then(data =>{

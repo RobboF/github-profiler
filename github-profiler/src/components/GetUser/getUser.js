@@ -2,6 +2,7 @@ import React from 'react';
 import TopBar from '../Navbar/navbar.js'
 import SearchBar from '../UserSearch/userSearch.js';
 import UserList from '../UserList/userList'
+import config from '../../config.json'
 class GetUser extends React.Component {
     constructor(props){
         super(props);
@@ -16,7 +17,7 @@ class GetUser extends React.Component {
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
-              'Authorization': "Basic <API TOKEN HERE>"
+              'Authorization': `Basic ${config.apiToken}`
             //   'Authorization': 'Basic afcda424d27073fd1ff6faa45d975c0cb7f14faf'
             }
           })

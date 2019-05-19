@@ -4,6 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 import ListItem from 'react'
 import CommitGraph from './commitGraph'
+import config from '../../../../config.json'
 
 export default class UserInformation extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ export default class UserInformation extends Component {
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
-              'Authorization': "Basic <API TOKEN HERE>"
+              'Authorization': `Basic ${config.apiToken}`
             //   'Authorization': 'Basic afcda424d27073fd1ff6faa45d975c0cb7f14faf'
             }
           })
