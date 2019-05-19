@@ -8,8 +8,9 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import CommitGraph from '../RepoInformation/commitGraph';
+import CommitGraph from '../RepoInformation/commitGraph.js'
 import config from '../../../../config.json'
+import Card from 'react-bootstrap/Card';
 
 
 export default class UserInformation extends Component {
@@ -98,7 +99,7 @@ export default class UserInformation extends Component {
                 <div id="page-content-wrapper">
                     <div className="container-fluid">
                         <RepoInformation username={this.props.username}/>
-                        <CommitGraph/>
+                        <CommitGraph username={this.props.username}/>
                     </div>
                 </div>
         </div>

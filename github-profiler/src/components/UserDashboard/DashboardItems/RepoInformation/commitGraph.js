@@ -1,47 +1,94 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Doughnut } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 import ListItem from 'react'
 import config from '../../../../config.json'
+import { Line } from "react-chartjs-2";
+import axios from 'axios'
+import constructGraphData from './bensGraphing.js'
 
+const axiosGitHubGraphQL = axios.create({
+    baseURL: "https://api.github.com/graphql",
+    headers: {
+        Authorization: `Basic ${config.apiToken}` 
+    },
+})
 
 export default class CommitGraph extends Component {
     constructor(props){
         super(props);
         this.state = {
-            }
-        }
-    
-    getCommitGraph = (username) => {
-        // if(!username){window.location.href = "/"}
-        fetch(`https://api.github.com/users/${username}/repos`, {
-            method: 'GET',
-            mode: "cors",
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              'Authorization': `Basic ${config.apiToken}` 
-            //   'Authorization': 'Basic afcda424d27073fd1ff6faa45d975c0cb7f14faf'
-            }
-          })
-          .then(response => {return response.json()}).then(data =>{
-              this.setState({RepoInformation: data})
-              this.getLanguages(data)
-              this.getForks(data)
-            }) 
-        }
- 
-    render() {
-        return(
-            <div className="">
-                <Card className="m-1 p-1 my-2">
-                    <p>Hi </p>
-                </Card>
-            </div>
+            userRepoList: [],
+            rawData: [],
+            graphData: {}
+        };
+    }
 
+    getGitQuery = () => {
+        return(
+            `
+            query{
+                rateLimit{
+                    cost
+                    remaining
+                    resetAt
+                }
+                user(login: ${this.props.username}){
+                repositories(first: 50){
+                        edges{
+                    node{
+                        name
+                        ... on Repository{
+                        defaultBranchRef{
+                            target{
+                            ... on Commit{
+                                history{
+                                edges{
+                                    node{
+                                    ... on Commit{
+                                        committedDate,
+                                        message
+                                    }
+                                    }
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+                    }
+                }
+                } 
+            }
+        `
         )
-  }
+    }    
+
+    componentDidMount = () => {
+        // console.log(" commit username",this.props.username)
+        // this.getRepoList(this.props.username)
+        this.onFetchFromGitHub();
+    }   
+    
+    onFetchFromGitHub = () => {
+        axiosGitHubGraphQL
+          .post('', { query: this.getGitQuery() })
+          .then(result => {this.setState({graphData: constructGraphData(result)}, () => console.log("Graph Data from State",this.state.graphData))});
+      };
+    
+      render() {
+        return (
+            <Card className="m-1 p-1 my-1 flex-fill h-25 d-flex bg-light border-0 rounded-0">  
+                     <MDBContainer>
+                        <Card.Title>Commit History: </Card.Title>
+                        <Line data={this.state.graphData.dataLine} options={{ responsive: true, legend:{display: false, position: "left"},  }} />
+                    </MDBContainer>
+
+              
+            </Card>
+        );
+      }
 }
 
 // export default CommitGraph;

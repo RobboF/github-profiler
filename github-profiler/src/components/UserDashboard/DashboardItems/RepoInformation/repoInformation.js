@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
-
+import _ from "lodash"
 import { Doughnut } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 import ListItem from 'react'
@@ -37,12 +37,22 @@ export default class UserInformation extends Component {
               this.getForks(data)
             }) 
         }
+
+
+
         getForks = (data) => { 
             console.log(data)
             let forkedRepos = data.filter(forks => {return forks.fork === true})
             this.setState({forkedRepos: forkedRepos.length})
             console.log(forkedRepos.length)
 
+        }
+        getFavouriteLanguage = () => {
+            let obj = this.state.langCount
+            console.log("Favourite Language: ", this.state.langCount)
+            // var maxKey = _.max(Object.values(obj), o => obj[o]);
+            // console.log(maxKey)
+            return Object.keys(obj)[0]
         }
         
         getLanguages = (data) => {
@@ -100,12 +110,13 @@ export default class UserInformation extends Component {
     render() {
         return(
             <div className="">
-                <Card className="m-1 p-1 my-2 d-flex flex-row justify-content-around">
+                <Card className="m-1 p-1 my-1 d-flex flex-row justify-content-around bg-light border-0 rounded-0">
                     <Card.Title> Public Repos: {this.state.RepoInformation.length} </Card.Title>
+                    <Card.Title> Main Language: {this.getFavouriteLanguage()} </Card.Title>
                     <Card.Title> Forked: {this.state.forkedRepos} </Card.Title>
                 </Card>
-                <div className="d-flex flex-row">
-                <Card className="m-1 p-1 my-2 d-flex flex-wrap">
+                <div className="d-flex flex-row h-50">
+                <Card className="m-1 p-1 my-1 d-flex flex-wrap bg-light border-0 rounded-0">
                 {/* <ul className="list-group list-group-flush flex-d flex-column">
                     {Object.keys(this.state.langCount).map((keys) => 
                        <li className="list-group-item" key={keys}>{keys}: {this.state.langCount[keys]}</li> 
@@ -115,7 +126,7 @@ export default class UserInformation extends Component {
                        <Badge pill variant="light" className="m-1" key={keys}>{keys}: {this.state.langCount[keys]}</Badge> 
                         )}
                 </Card>
-                <Card className="m-1 p-1 my-2 flex-fill h-25">
+                <Card className="m-1 p-1 my-1 flex-fill h-25 d-flex bg-light border-0 rounded-0">
                     <MDBContainer>
                      <Card.Title>Languages: </Card.Title>
                     <Doughnut data={this.state.languageGraph} options={{ responsive: true, legend:{display: false, position: "left"},  }} />
