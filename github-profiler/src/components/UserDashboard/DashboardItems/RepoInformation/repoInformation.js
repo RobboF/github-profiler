@@ -126,12 +126,13 @@ export default class UserInformation extends Component {
                        <Badge pill variant="light" className="m-1" key={keys}>{keys}: {this.state.langCount[keys]}</Badge> 
                         )}
                 </Card>
-                <Card className="m-1 p-1 my-1 flex-fill h-25 d-flex bg-light border-0 rounded-0">
+                <Card className="m-1 p-1 my-1 flex-fill d-flex bg-light border-0 rounded-0 w-25 align-items-center">
                     <MDBContainer>
-                     <Card.Title>Languages: </Card.Title>
-                    <Doughnut data={this.state.languageGraph} options={{ responsive: true, legend:{display: false, position: "left"},  }} />
+                     <Card.Title className="mb-4">Languages: </Card.Title>
+                    <Doughnut data={this.state.languageGraph} options={{ responsive: true, legend:{display: false, position: "bottom"},  }} />
                     </MDBContainer>
                 </Card>
+                <CommitGraph username={this.props.username}/>
                 </div>
                 
             </div>

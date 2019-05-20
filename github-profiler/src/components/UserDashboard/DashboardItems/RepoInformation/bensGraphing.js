@@ -35,12 +35,13 @@ Array.prototype.rotate = function(n) {
       while(commitDate.getMonth() == yearPrior.getMonth()) {
         commitCnt++
         dataArray[i]++
-        if(commitCnt == commits.length)
+        if(commitCnt >= commits.length)
           break
         commitDate = new Date(commits[commitCnt]['node']['committedDate'])
       }
       yearPrior = new Date(yearPrior.setMonth(yearPrior.getMonth() + 1))
     }
+    console.log(node['name'] + ': ' + dataArray)
     return {
       label: node['name'],
       fill: true,
@@ -67,7 +68,8 @@ Array.prototype.rotate = function(n) {
     const labels = ["January", "February", "March", "April", "May", "June", "July",
       "August", "September", "October", "November", "December"].rotate(new Date().getMonth());
     var datasets = []
-    commitData = commitData['data']['user']['repositories']['edges']
+    console.log(commitData)
+    commitData = commitData['data']['data']['user']['repositories']['edges']
     for(var i = 0; i < commitData.length; i++) {
       datasets.push(handleRepo(commitData[i]))
     }

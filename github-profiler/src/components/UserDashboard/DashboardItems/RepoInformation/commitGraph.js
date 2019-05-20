@@ -79,7 +79,7 @@ export default class CommitGraph extends Component {
     
       render() {
         return (
-            <Card className="m-1 p-1 my-1 flex-fill h-25 d-flex bg-light border-0 rounded-0">  
+            <Card className="m-1 p-1 my-1 flex-fill d-flex bg-light border-0 rounded-0">  
                      <MDBContainer>
                         <Card.Title>Commit History: </Card.Title>
                         <Line data={this.state.graphData.dataLine} options={{ responsive: true, legend:{display: false, position: "left"},  }} />
