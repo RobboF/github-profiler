@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
-import _ from "lodash"
 import { Doughnut } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
-import ListItem from 'react'
 import CommitGraph from './commitGraph'
 import config from '../../../../config.json'
 
@@ -133,7 +131,7 @@ export default class UserInformation extends Component {
                     <Doughnut data={this.state.languageGraph} options={{ responsive: true, legend:{display: false, position: "bottom"},  }} />
                     </MDBContainer>
                 </Card>
-                <CommitGraph username={this.props.username} />
+                {/* <CommitGraph username={this.props.username} /> */}
                 </div>
                 
             </div>
