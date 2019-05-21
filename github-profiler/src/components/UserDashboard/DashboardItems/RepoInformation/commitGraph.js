@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import { MDBContainer } from "mdbreact";
-import ListItem from 'react'
 import config from '../../../../config.json'
 import { Line } from "react-chartjs-2";
 import axios from 'axios'
@@ -74,7 +73,7 @@ export default class CommitGraph extends Component {
     onFetchFromGitHub = () => {
         axiosGitHubGraphQL
           .post('', { query: this.getGitQuery() })
-          .then(result => {this.setState({graphData: constructGraphData(result)}, () => console.log("Graph Data from State",this.state.graphData))});
+          .then(result => {this.setState({graphData: constructGraphData(result)}, () => {console.log("Graph Data from State",this.state.graphData)})});
       };
     
       render() {

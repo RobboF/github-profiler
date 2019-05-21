@@ -15,7 +15,8 @@ export default class UserInformation extends Component {
                 RepoInformation: {},
                 languageGraph: {},
                 langCount: "",
-                forkedRepos: 0
+                forkedRepos: 0,
+                
             }
         }
     
@@ -132,7 +133,7 @@ export default class UserInformation extends Component {
                     <Doughnut data={this.state.languageGraph} options={{ responsive: true, legend:{display: false, position: "bottom"},  }} />
                     </MDBContainer>
                 </Card>
-                <CommitGraph username={this.props.username}/>
+                <CommitGraph username={this.props.username} />
                 </div>
                 
             </div>
